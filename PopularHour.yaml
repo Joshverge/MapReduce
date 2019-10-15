@@ -1,0 +1,17 @@
+MapReduce:
+Map(userId, <hh:mm:ss>):
+  emit(value[0],1)
+
+Reduce(hour, value)
+  for val in value:
+    sum += vals[0]
+  emit(hh,vals)
+
+Map(hh,sum):
+  emit(1,<hh,sum>)
+
+Reduce(key, value):
+  for val in value:
+    i = find_index_max(val[1])
+
+  emit(val[i])
