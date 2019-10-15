@@ -1,0 +1,29 @@
+Chains two MapReduce
+
+MapReduce1
+Map(a, b): # a -> b (a follows b)
+  emit(a, <'follows', 'b'> )
+  emit(b, <'followed by', 'a'> )
+
+Reduce(userID, value):
+  for val in value:
+    if val[0] == "follows"
+      following +=1
+    elif val[0] == "followed by"
+      followers +=1
+      list_of_followers.append(val[1])
+
+    if followers > 1M and following > 10:
+      emit(userID, "follower > 1M and following > 10")
+
+    if follower > 2M:
+      for followers in list_of_followers:
+        emit(follower, "follows someone with followers > 2M")
+
+MapRead2
+Map(userID, value):
+  emit(key, value) # keys now all ordered at next reduce
+
+Reduce(userID, value):
+  if "follows someone with followers > 2M" and "follower > 1M and following > 10" in value:
+    emit(key, '')
